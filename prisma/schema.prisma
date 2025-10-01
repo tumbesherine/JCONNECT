@@ -1,0 +1,46 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// Application models for properties and users
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  role      String?    @default("user")
+  // If you store password locally (not recommended with Supabase Auth), include it.
+  password  String?
+  properties Property[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Property {
+  id          String          @id @default(cuid())
+  title       String
+  type        String
+  location    String
+  description String?
+  price       Float?
+  ownerId     String
+  owner       User            @relation(fields: [ownerId], references: [id])
+  images      PropertyImage[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@index([ownerId])
+}
+
+model PropertyImage {
+  id         String   @id @default(cuid())
+  propertyId String
+  url        String
+  property   Property @relation(fields: [propertyId], references: [id])
+  createdAt  DateTime @default(now())
+}

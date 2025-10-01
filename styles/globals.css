@@ -1,0 +1,310 @@
+/* Tailwind directives - using preflight/components/utilities for compatibility */
+/* NOTE: Tailwind imports removed per request.
+  The file below provides a small compatibility layer of CSS utilities
+  (a tiny subset of the Tailwind classes actually used in the app).
+  This keeps existing className values working without adding Tailwind.
+*/
+
+/* Design tokens using CSS variables. Keep them at the root so they are
+   available to all components. */
+:root {
+  --background: #f8fafc; /* slate-50 */
+  --foreground: #0f172a; /* slate-900 */
+  --primary: #2563eb; /* blue-600 */
+  --accent: #fbbf24; /* yellow-400 */
+  --card-bg: #ffffff;
+  --card-border: #e6eef9;
+  --muted: #64748b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0b1220;
+    --foreground: #e6eef8;
+    --primary: #60a5fa;
+    --accent: #fde68a;
+    --card-bg: #0f172a;
+    --card-border: rgba(255,255,255,0.04);
+    --muted: #94a3b8;
+  }
+}
+
+/* Page defaults */
+html, body, #__next {
+  height: 100%;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+/* Small utility classes used across components where Tailwind isn't applied */
+.btn {
+  background-color: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.5rem;
+  transition: background-color .15s ease, box-shadow .15s ease;
+  border: none;
+  cursor: pointer;
+}
+.btn:hover { background-color: #1d4ed8; }
+
+.card {
+  background: var(--card-bg);
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 6px 18px rgba(2,6,23,0.06);
+}
+
+.map-placeholder {
+  min-height: 12rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Make images and media responsive by default */
+img, picture, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Tiny utility subset to mimic Tailwind classes used in the project */
+/* Layout */
+.w-full { width: 100%; }
+.min-h-screen { min-height: 100vh; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.max-w-6xl { max-width: 72rem; }
+.max-w-4xl { max-width: 56rem; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+.py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+.p-4 { padding: 1rem; }
+.p-1 { padding: 0.25rem; }
+.gap-2 { gap: 0.5rem; }
+.gap-3 { gap: 0.75rem; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.items-center { align-items: center; }
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.relative { position: relative; }
+.sticky { position: sticky; }
+.top-0 { top: 0; }
+.z-50 { z-index: 50; }
+.w-8 { width: 2rem; }
+.h-8 { height: 2rem; }
+.object-contain { object-fit: contain; }
+
+/* Typography */
+.font-bold { font-weight: 700; }
+.font-semibold { font-weight: 600; }
+.text-2xl { font-size: 1.5rem; line-height: 1.2; }
+.text-base { font-size: 1rem; }
+.text-xs { font-size: 0.75rem; }
+.tracking-wide { letter-spacing: 0.02em; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mt-12 { margin-top: 3rem; }
+.mt-6 { margin-top: 1.5rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+/* Colors (a handful used in components) */
+.bg-gray-400 { background-color: #9CA3AF; }
+.bg-gray-300 { background-color: #D1D5DB; }
+.text-white { color: #fff; }
+.text-gray-700 { color: #374151; }
+.text-blue-700 { color: #1d4ed8; }
+.hover\:text-blue-900:hover { color: #1e3a8a; }
+.text-blue-500 { color: #3b82f6; }
+.text-pink-600 { color: #db2777; }
+.hover\:text-blue-700:hover { color: #1d4ed8; }
+
+/* Links / hover underline compatibility (Tailwind used classes like hover:underline) */
+.underline { text-decoration: underline; }
+.hover\:underline:hover { text-decoration: underline; }
+
+/* Buttons, cards and common components */
+.btn { background-color: var(--primary); color: #fff; font-weight: 600; padding: 0.5rem 1.25rem; border-radius: 0.5rem; transition: background-color .15s ease, box-shadow .15s ease; border: none; cursor: pointer; }
+.btn:hover { background-color: #1d4ed8; }
+.card { background: var(--card-bg); padding: 1rem; border-radius: 1rem; border: 1px solid var(--card-border); box-shadow: 0 6px 18px rgba(2,6,23,0.06); }
+.map-placeholder { min-height: 12rem; background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; }
+
+/* Spacing helpers */
+.mb-0 { margin-bottom: 0; }
+.mb-4 { margin-bottom: 1rem; }
+
+/* Responsive (md ~ 768px) variants for classNames like md:flex-row */
+@media (min-width: 768px) {
+  .md\:flex-row { flex-direction: row; }
+  .md\:gap-4 { gap: 1rem; }
+  .md\:items-end { align-items: flex-end; }
+  .md\:text-left { text-align: left; }
+}
+
+/* Simple small-heading tweak used in a couple places */
+@media (max-width: 640px) {
+  h1 { font-size: 1.75rem; }
+}
+
+/* Additional utilities to cover common Tailwind classNames used in the app */
+/* Rounded sizes */
+.rounded-lg { border-radius: 0.75rem; }
+.rounded-xl { border-radius: 1rem; }
+
+/* Shadows */
+.shadow { box-shadow: 0 6px 16px rgba(2,6,23,0.08); }
+.shadow-lg { box-shadow: 0 12px 30px rgba(2,6,23,0.12); }
+.shadow-xl { box-shadow: 0 25px 75px rgba(2,6,23,0.18); }
+.hover\:shadow-xl:hover { box-shadow: 0 25px 75px rgba(2,6,23,0.18); }
+.hover\:shadow-lg:hover { box-shadow: 0 12px 30px rgba(2,6,23,0.12); }
+
+/* Flex & sizing */
+.flex-1 { flex: 1 1 0%; }
+.w-40 { width: 10rem; }
+.w-32 { width: 8rem; }
+.h-48 { height: 12rem; }
+
+/* Spacing helpers that operate between children (space-y) */
+.space-y-1 > * + * { margin-top: 0.25rem; }
+.space-y-2 > * + * { margin-top: 0.5rem; }
+
+/* Object fit utilities */
+.object-cover { object-fit: cover; }
+.object-contain { object-fit: contain; }
+
+/* Transition and transform helpers */
+.transition-all { transition-property: all; }
+.duration-300 { transition-duration: 300ms; }
+.hover\:scale-\[1\.02\]:hover { transform: scale(1.02); }
+
+/* Bracket-notation classes (escaped) used by Tailwind in project */
+.min-h-\[520px\] { min-height: 520px; }
+
+/* Line clamp helper for descriptions */
+.line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* Background colors used by buttons/labels */
+.bg-blue-700 { background-color: #1d4ed8; }
+.bg-blue-600 { background-color: #2563eb; }
+.bg-green-600 { background-color: #059669; }
+.bg-yellow-500 { background-color: #f59e0b; }
+.bg-gray-200 { background-color: #e5e7eb; }
+.bg-gray-300 { background-color: #d1d5db; }
+.bg-gray-500 { background-color: #6b7280; }
+.bg-gray-700 { background-color: #374151; }
+
+/* Hover color helpers */
+.hover\:bg-blue-800:hover { background-color: #1e40af; }
+.hover\:bg-blue-700:hover { background-color: #1d4ed8; }
+.hover\:bg-green-700:hover { background-color: #047857; }
+.hover\:bg-yellow-600:hover { background-color: #d97706; }
+.hover\:bg-gray-300:hover { background-color: #d1d5db; }
+.hover\:bg-gray-700:hover { background-color: #374151; }
+
+/* Text truncation and utilities */
+.truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* --- Add missing utilities and overrides used by the app --- */
+/* Provide small Tailwind-like gradient utilities so existing classNames
+  (bg-gradient-to-r from-gray-600 via-gray-400 to-gray-200) render correctly
+  without installing Tailwind. */
+.bg-gradient-to-r { background-image: linear-gradient(90deg, var(--gradient-from, transparent), var(--gradient-via, transparent), var(--gradient-to, transparent)); }
+.from-gray-600 { --gradient-from: #4b5563; }
+.via-gray-400 { --gradient-via: #9ca3af; }
+.to-gray-200 { --gradient-to: #e5e7eb; }
+
+/* Ensure headers using text-white remain readable */
+header.text-white, header .text-white { color: #fff; }
+
+/* Larger typography used on dashboard */
+.text-4xl { font-size: 2.25rem; line-height: 1.1; }
+@media (min-width: 768px) {
+  .md\:text-5xl { font-size: 3rem; line-height: 1.05; }
+}
+.font-extrabold { font-weight: 800; }
+
+/* Grid helpers used on dashboard */
+.grid { display: grid; }
+.grid-cols-1 { grid-template-columns: 1fr; }
+@media (min-width: 768px) {
+  .md\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .md\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Borders and rounded corners */
+.border { border: 1px solid #e5e7eb; }
+.border-2 { border-width: 2px; }
+.border-blue-100 { border-color: #DBEAFE; }
+.rounded { border-radius: 0.5rem; }
+.rounded-md { border-radius: 0.375rem; }
+
+/* Spacing helpers used in forms and buttons */
+.px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.ml-2 { margin-left: 0.5rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-4 { margin-top: 1rem; }
+
+/* Color utilities used by components */
+.text-blue-900 { color: #1e3a8a; }
+.text-gray-600 { color: #4b5563; }
+.text-gray-500 { color: #6b7280; }
+.text-green-700 { color: #047857; }
+.text-purple-700 { color: #6b21a8; }
+.bg-white { background-color: #ffffff; }
+.bg-red-500 { background-color: #ef4444; }
+.bg-gray-700 { background-color: #374151; }
+
+/* Hover shadow used on property cards */
+.hover\:shadow-2xl:hover { box-shadow: 0 25px 50px rgba(2,6,23,0.25); }
+
+/* Transition utility */
+.transition { transition: all .15s ease; }
+
+/* Input tweaks referenced in dashboard */
+.border { border: 1px solid #e5e7eb; }
+.w-full { width: 100%; }
+.text-sm { font-size: 0.875rem; }
+
+/* Re-use existing button look for colored variants */
+.btn.bg-red-500 { background-color: #ef4444; }
+.btn.bg-gray-700 { background-color: #374151; }
+
+/* small display helpers */
+.max-w-2xl { max-width: 42rem; }
+
+/* Accessibility helpers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Small responsive tweaks */
+@media (max-width: 640px) {
+  h1 { font-size: 1.75rem; }
+}
