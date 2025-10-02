@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 
 interface AuthFormProps {
@@ -8,20 +10,18 @@ interface AuthFormProps {
 const AuthForm: React.FC<AuthFormProps> = ({ type = "login", onSubmit }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState<string>("landlord");
+  const [role, setRole] = useState<string>("property owner");
 
   return (
     <form
-      className="card max-w-md mx-auto mt-12"
+      className="card max-w-md mx-auto mt-12 p-6 border rounded shadow"
       onSubmit={(e) => {
         e.preventDefault();
-        if (type === "register") onSubmit(email, password, role ?? "landlord");
-        else onSubmit(email, password);
+        onSubmit(email, password, role);
       }}
     >
-      <h2 className="text-2xl font-bold mb-6">
-        {type === "login" ? "Login" : "Register"}
-      </h2>
+      <h2 className="text-2xl font-bold mb-6">{type === "login" ? "Login" : "Register"}</h2>
+
       <input
         type="email"
         placeholder="Email"
@@ -30,6 +30,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type = "login", onSubmit }) => {
         className="w-full mb-4 px-3 py-2 border rounded focus:outline-none focus:ring"
         onChange={(e) => setEmail(e.target.value)}
       />
+
       <input
         type="password"
         placeholder="Password"
@@ -38,16 +39,18 @@ const AuthForm: React.FC<AuthFormProps> = ({ type = "login", onSubmit }) => {
         className="w-full mb-6 px-3 py-2 border rounded focus:outline-none focus:ring"
         onChange={(e) => setPassword(e.target.value)}
       />
+
       {type === "register" && (
         <select
           value={role}
           onChange={(e) => setRole(e.target.value)}
           className="w-full mb-6 px-3 py-2 border rounded"
         >
-          <option value="landlord">Landlord / Property Owner</option>
+          <option value="property owner">Property Owner</option>
           <option value="tenant">Tenant</option>
         </select>
       )}
+
       <button type="submit" className="btn w-full">
         {type === "login" ? "Login" : "Create Account"}
       </button>

@@ -43,3 +43,6 @@ next-env.d.ts
 .DS_Store
 dist/rsakey
 rsakey
+rsakey
+*.pem
+.env

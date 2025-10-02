@@ -7,7 +7,7 @@ export default function Profile() {
   );
 
   useEffect(() => {
-    setUser({ name: "John Doe", email: "john@example.com" });
+    setUser({ name: "Joseph f", email: "john@example.com" });
   }, []);
 
   if (!user) return <div className="text-center py-20">Loading profile...</div>;

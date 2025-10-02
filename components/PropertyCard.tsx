@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from "react";
 import MapboxMap from "./MapboxMap";
 import Link from "next/link";
@@ -34,23 +36,22 @@ const PropertyCard: React.FC<{ property: Property }> = ({ property }) => {
   };
 
   const avgRating = reviews.length
-    ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(
-        1,
-      )
+    ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
     : null;
 
   return (
     <div className="card mb-8 min-h-[520px] flex flex-col justify-between shadow-lg border border-gray-200 dark:border-gray-800">
       <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg hover:scale-[1.02] hover:shadow-xl transition-all duration-300 p-6 flex flex-col items-center w-full">
-        {property.images && property.images.length > 0 ? (
-          <div className="w-full h-48 relative rounded-lg mb-4">
-            <Image src={property.images[0]} alt={property.title} fill className="object-cover rounded-lg" />
-          </div>
-        ) : (
-          <div className="w-full h-48 relative rounded-lg mb-4">
-            <Image src="/window.svg" alt="No image" fill className="object-cover rounded-lg" />
-          </div>
-        )}
+
+        {/* Images Carousel */}
+        <div className="w-full h-48 relative rounded-lg mb-4 overflow-x-auto flex gap-2">
+          {(property.images && property.images.length > 0 ? property.images : ["/window.svg"]).map((img, idx) => (
+            <div key={idx} className="relative w-64 h-48 flex-shrink-0">
+              <Image src={img} alt={property.title} fill className="object-cover rounded-lg" />
+            </div>
+          ))}
+        </div>
+
         <h2 className="text-2xl font-bold mb-2 text-center text-blue-900 dark:text-blue-300 truncate">
           {property.title}
         </h2>
@@ -66,10 +67,12 @@ const PropertyCard: React.FC<{ property: Property }> = ({ property }) => {
         <p className="mt-4 text-gray-700 dark:text-gray-400 line-clamp-2 text-center">
           {property.description}
         </p>
+
         {/* Mapbox Map */}
         <div className="w-full my-4">
           <MapboxMap longitude={28.3228} latitude={-15.3875} />
         </div>
+
         {/* Reviews & Ratings */}
         <div className="w-full mt-4">
           <div className="flex items-center gap-2 mb-2">
@@ -80,10 +83,7 @@ const PropertyCard: React.FC<{ property: Property }> = ({ property }) => {
               <span className="text-gray-400">No ratings yet</span>
             )}
           </div>
-          <form
-            className="flex flex-col gap-2 mb-2"
-            onSubmit={handleReviewSubmit}
-          >
+          <form className="flex flex-col gap-2 mb-2" onSubmit={handleReviewSubmit}>
             <label className="text-sm font-medium">Leave a review:</label>
             <select
               value={rating}
@@ -92,9 +92,7 @@ const PropertyCard: React.FC<{ property: Property }> = ({ property }) => {
             >
               <option value={0}>Select rating</option>
               {[1, 2, 3, 4, 5].map((n) => (
-                <option key={n} value={n}>
-                  {n}
-                </option>
+                <option key={n} value={n}>{n}</option>
               ))}
             </select>
             <textarea
@@ -115,23 +113,17 @@ const PropertyCard: React.FC<{ property: Property }> = ({ property }) => {
             <div className="mt-2">
               <span className="font-semibold">Recent Reviews:</span>
               <ul className="mt-1 space-y-1">
-                {reviews
-                  .slice(-3)
-                  .reverse()
-                  .map((r, idx) => (
-                    <li
-                      key={idx}
-                      className="text-sm text-gray-700 dark:text-gray-300 border-b pb-1"
-                    >
-                      <span className="text-yellow-500">{r.rating}★</span>{" "}
-                      {r.comment}
-                    </li>
-                  ))}
+                {reviews.slice(-3).reverse().map((r, idx) => (
+                  <li key={idx} className="text-sm text-gray-700 dark:text-gray-300 border-b pb-1">
+                    <span className="text-yellow-500">{r.rating}★</span> {r.comment}
+                  </li>
+                ))}
               </ul>
             </div>
           )}
         </div>
-        {/* ...existing buttons... */}
+
+        {/* Action Buttons */}
         <div className="flex gap-4 mt-6">
           <button className="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition font-semibold">
             Book Now
